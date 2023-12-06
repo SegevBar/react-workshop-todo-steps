@@ -3,10 +3,22 @@ import { useState } from "react";
 
 export default function App() {
   const [newItem, setNewItem] = useState("");
-  console.log(newItem);
+  const [todos, setTodos] = useState([]);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    setTodos((prevTodos) => {
+      return [
+        ...prevTodos,
+        { id: prevTodos.length + 1, title: newItem, completed: false },
+      ];
+    });
+  }
+
   return (
     <>
-      <form className="new-item-form">
+      <form onSubmit={handleSubmit} className="new-item-form">
         <div className="form-row">
           <label htmlFor="item">New Item</label>
           <input
